@@ -1,30 +1,27 @@
 import CarItem from "./CarItem.jsx";
 
-const cars = [
-  { id: 1, title: "Luxury Sedan", brand: "Mercedes", year: 2023, price: 80000, isPremium: true },
-  { id: 2, title: "Family SUV", brand: "Toyota", year: 2022, price: 45000, isPremium: false },
-  { id: 3, title: "Sports Car", brand: "Porsche", year: 2023, price: 120000, isPremium: true },
-  {
-    id: 4,
-    title: "Electric Hatchback",
-    brand: "Nissan",
-    year: 2022,
-    price: 35000,
-    isPremium: false
-  },
-  { id: 5, title: "Luxury SUV", brand: "BMW", year: 2023, price: 90000, isPremium: true }
-];
+function CarList({ cars, searchString, filterPremium = false }) {
+  const rows = [];
+  const lowercasedSearchString = searchString.toLowerCase();
+  
+  cars.forEach(car => {
+    const matchesCar = car.title.toLowerCase().includes(lowercasedSearchString);
+    const matchesFilter = !filterPremium || car.isPremium;
 
-function CarList() {
-  return (
-    <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
-      {cars.map(car => (
+    if (matchesCar && matchesFilter) {
+      rows.push(
         <li key={car.id}>
           <CarItem car={car} />
         </li>
-      ))}
-    </ul>
-  );
+      );
+    }
+  });
+
+  if (rows.length === 0) {
+    return <p className=" text-2xl text-center font-bold shadow-md p-3 rounded-md">No car found!</p>
+  }
+  
+  return <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">{rows}</ul>;
 }
 
 export default CarList;
