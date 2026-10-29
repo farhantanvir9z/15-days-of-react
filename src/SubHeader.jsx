@@ -1,16 +1,12 @@
-import SearchBar from "./SearchBar.jsx";
-import Filter from "./Filter.jsx";
+import Counter from "./Counter.jsx";
 
-function SubHeader({ searchString , onSettingSearchStr, filterPremium, onFilterPremium }) {
+function SubHeader({ userCount, onSettingUserCount, onAddingUser }) {
   return (
-    <section className="flex flex-col md:flex-row gap-3 items-end md:items-center md:gap-6">
-      <SearchBar searchString={searchString} onSettingSearchStr={onSettingSearchStr} />
-      <Filter 
-        filterPremium={filterPremium}
-        onFilterPremium={onFilterPremium}
-        />
+    <section className="p-2 flex justify-end md:justify-center shadow-md h-20 rounded-md">
+      <Counter userCount={userCount} onSettingUserCount={onSettingUserCount}
+        onAddingUser={onAddingUser}
+      />
     </section>
   );
 }
-
 export default SubHeader;
